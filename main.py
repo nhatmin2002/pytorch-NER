@@ -21,10 +21,10 @@ model = RoBERTa_BiLSTM_CRF(roberta_path, len(id2tag),
 model.reset_parameters()
 optimizer = Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=lr)
 
-dataset = CLUEDataset('clue/train.json', model.tokenizer)
+dataset = CLUEDataset('clue/train.txt', model.tokenizer)
 dataloader_train = DataLoader(dataset, collate_fn=dataset.collate_fn,
                               batch_size=batch_size, shuffle=True, drop_last=True)
-dataset = CLUEDataset('clue/dev.json', model.tokenizer)
+dataset = CLUEDataset('clue/dev.txt', model.tokenizer)
 dataloader_valid = DataLoader(dataset, collate_fn=dataset.collate_fn,
                               batch_size=batch_size, shuffle=False, drop_last=False)
 
