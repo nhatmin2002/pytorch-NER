@@ -228,21 +228,41 @@ class CLUEDataset(Dataset):
 
         return torch.LongTensor(token['input_ids']), torch.ByteTensor(token['attention_mask']), self._pad(labels)
 
+    # @staticmethod
+    # def _align_label(offset, label):
+
+    #     label_align = []
+    #     for i, (start, end) in enumerate(offset):
+
+    #         if start == end:
+    #             label_align.append(tag2id['O'])
+    #         else:
+    #             # 1-N or N-1, default to use first original label as final label
+    #             if i > 0 and offset[i - 1] == (start, end):
+    #                 label_align.append(label[start:end][0].replace('B', 'O', 1))
+    #             else:
+    #                 label_align.append(label[start:end][0])
+    #     return label_align
+
     @staticmethod
     def _align_label(offset, label):
-
         label_align = []
         for i, (start, end) in enumerate(offset):
-
             if start == end:
                 label_align.append(tag2id['O'])
             else:
-                # 1-N or N-1, default to use first original label as final label
                 if i > 0 and offset[i - 1] == (start, end):
-                    label_align.append(label[start:end][0].replace('B', 'O', 1))
+                    if start < len(label) and end < len(label):
+                        label_align.append(label[start:end][0].replace('B', 'O', 1))
+                    else:
+                        print("Index out of range: start =", start, ", end =", end)
                 else:
-                    label_align.append(label[start:end][0])
+                    if start < len(label) and end < len(label):
+                        label_align.append(label[start:end][0])
+                    else:
+                        print("Index out of range: start =", start, ", end =", end)
         return label_align
+
 
     @staticmethod
     def _pad(labels):
