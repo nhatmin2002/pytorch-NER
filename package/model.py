@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from torch import nn
-from transformers import BertModel, BertTokenizerFast, BertConfig
+from transformers import BertModel, BertTokenizerFast, BertConfig,AutoModelForTokenClassification,AutoTokenizer,AutoConfig
 from package.nn import ConditionalRandomField
 
 import torch
@@ -13,7 +13,7 @@ class RoBERTa_BiLSTM_CRF(nn.Module):
     def __init__(self, path_to_roberta, tag_set_size, lstm_hidden_dim=256, lstm_dropout_rate=0.1, freeze_roberta=True):
         super(RoBERTa_BiLSTM_CRF, self).__init__()
 
-        model = BertModel.from_pretrained(path_to_roberta)
+        model = AutoModelForTokenClassification.from_pretrained(path_to_roberta)
 
         if freeze_roberta:
             for param in model.parameters():
@@ -21,8 +21,8 @@ class RoBERTa_BiLSTM_CRF(nn.Module):
 
         self.roberta = model
 
-        self.tokenizer = BertTokenizerFast.from_pretrained(path_to_roberta)
-        roberta_config = BertConfig.from_pretrained(path_to_roberta)
+        self.tokenizer = AutoTokenizer.from_pretrained(path_to_roberta)
+        roberta_config = AutoConfig.from_pretrained(path_to_roberta)
 
         self.bilstm = nn.LSTM(roberta_config.hidden_size, lstm_hidden_dim // 2,
                               num_layers=2, bidirectional=True, dropout=lstm_dropout_rate, batch_first=True)
