@@ -11,7 +11,7 @@ device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cp
 lr = 1e-3
 batch_size = 128
 accumulation_steps = 1
-roberta_path = 'resource/RoBERTa_zh_Large_PyTorch'
+roberta_path = 'vinai/phobert-base'
 
 lstm_hidden_dim = 768
 lstm_dropout_rate = 0.1
