@@ -9,9 +9,9 @@ from pprint import pprint
 
 device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 lr = 1e-3
-batch_size = 128
+batch_size = 256
 accumulation_steps = 1
-roberta_path = 'bert-base-uncased'
+roberta_path = 'vinai/phobert-base'
 
 lstm_hidden_dim = 768
 lstm_dropout_rate = 0.1
