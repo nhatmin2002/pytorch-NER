@@ -27,7 +27,7 @@ def read_clue_json(path):
                         
     dict_list = []
     for token_seq, label_seq in zip(tokens, labels):
-            text = ' '.join(token_seq)  # Ghép các từ lại thành một chuỗi văn bản
+            text = ''.join(token_seq)  # Ghép các từ lại thành một chuỗi văn bản
             dict_list.append({'text': text, 'label': label_seq})
     return  dict_list
 
