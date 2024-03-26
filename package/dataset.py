@@ -219,7 +219,7 @@ class CLUEDataset(Dataset):
         """collate_fn for 'torch.utils.data.DataLoader'
         """
         texts, labels = list(zip(*[[item[0], item[1]] for item in batch]))
-        token = self.tokenizer(list(texts), padding=False, return_offsets_mapping=True)
+        token = self.tokenizer(list(texts), padding=True, return_offsets_mapping=True)
 
         # align the label
         # Bert mat split a word 'AA' into 'A' and '##A'
