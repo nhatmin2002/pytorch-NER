@@ -3,29 +3,32 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 from package.utils import read_clue_json
 
-tag2id = {'O': 0,
-          'B-address': 1, 'I-address': 2,
-          'B-book': 3, 'I-book': 4,
-          'B-company': 5, 'I-company': 6,
-          'B-game': 7, 'I-game': 8,
-          'B-government': 9, 'I-government': 10,
-          'B-movie': 11, 'I-movie': 12,
-          'B-name': 13, 'I-name': 14,
-          'B-organization': 15, 'I-organization': 16,
-          'B-position': 17, 'I-position': 18,
-          'B-scene': 19, 'I-scene': 20}
+# tag2id = {'O': 0,
+#           'B-address': 1, 'I-address': 2,
+#           'B-book': 3, 'I-book': 4,
+#           'B-company': 5, 'I-company': 6,
+#           'B-game': 7, 'I-game': 8,
+#           'B-government': 9, 'I-government': 10,
+#           'B-movie': 11, 'I-movie': 12,
+#           'B-name': 13, 'I-name': 14,
+#           'B-organization': 15, 'I-organization': 16,
+#           'B-position': 17, 'I-position': 18,
+#           'B-scene': 19, 'I-scene': 20}
 
-id2tag = {0: 'O',
-          1: 'B-address', 2: 'I-address',
-          3: 'B-book', 4: 'I-book',
-          5: 'B-company', 6: 'I-company',
-          7: 'B-game', 8: 'I-game',
-          9: 'B-government', 10: 'I-government',
-          11: 'B-movie', 12: 'I-movie',
-          13: 'B-name', 14: 'I-name',
-          15: 'B-organization', 16: 'I-organization',
-          17: 'B-position', 18: 'I-position',
-          19: 'B-scene', 20: 'I-scene'}
+# id2tag = {0: 'O',
+#           1: 'B-address', 2: 'I-address',
+#           3: 'B-book', 4: 'I-book',
+#           5: 'B-company', 6: 'I-company',
+#           7: 'B-game', 8: 'I-game',
+#           9: 'B-government', 10: 'I-government',
+#           11: 'B-movie', 12: 'I-movie',
+#           13: 'B-name', 14: 'I-name',
+#           15: 'B-organization', 16: 'I-organization',
+#           17: 'B-position', 18: 'I-position',
+#           19: 'B-scene', 20: 'I-scene'}
+
+tag2id={'O':0, 'B-PER':1, 'I-PER':2, 'B-MISC':3, 'I-MISC':4, 'B-LOC':5, 'B-ORG':6, 'I-ORG':7, 'I-LOC':8}
+id2tag={'O':0, 'B-PER':1, 'I-PER':2, 'B-MISC':3, 'I-MISC':4, 'B-LOC':5, 'B-ORG':6, 'I-ORG':7, 'I-LOC':8}
 
 
 def decode_tags_from_ids(batch_ids):
